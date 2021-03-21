@@ -1,7 +1,7 @@
 # https://en.wikipedia.org/wiki/Jumble_algorithm
 
 
-import sys
+import sys, time
 
 
 def load_words(filename):
@@ -23,6 +23,8 @@ if __name__ == '__main__':
         language = load_words('words_alpha.txt')
         jumble = 'dog'
 
+    start_time = time.time()
+
     # Create list of permutations
     perms = []
     temp = []
@@ -34,23 +36,16 @@ if __name__ == '__main__':
             for p in range(0, len(perm) + 1):
                 temp.append(perm[:p] + jumble[j] + perm[p:])
 
-        # Add individual letter to list of permutations after sequential insertion, above
         temp.append(jumble[j])
 
-        # Add variants in the temp list to the list of permutations
-        # but first check for duplicates caused by double letters from words like "apple"
         for new_perm in temp:
             if new_perm not in perms:
                 perms.append(new_perm)
 
-        # Clear temp
         temp = []
 
-
-    # Display permutations
-    print('all permutations:', perms)
-
-    print('# perms = ', len(perms))
+    # print('all permutations:', perms)
+    # print('# perms = ', len(perms))
 
     # Check all permutations against list of valid words, and add valid words to a final list
     words = []
@@ -59,4 +54,8 @@ if __name__ == '__main__':
         if perm in language:
             words.append(perm)
 
-    print('real words: ', words)
+    total_time = time.time() - start_time
+
+    print('valid words: ', words)
+
+    print('time: ', total_time)
