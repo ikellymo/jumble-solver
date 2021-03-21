@@ -11,7 +11,6 @@ def load_words(filename):
     return valid_words
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
     try:
@@ -28,12 +27,12 @@ if __name__ == '__main__':
     perms = []
     temp = []
 
-    for j in range(0, len(jumble)):  # executed n times
+    for j in range(0, len(jumble)):
 
         # Add the next letter in the jumble to each position of each existing permutation
         for perm in perms:  # len(jumble):num_permutations - 1:1, 2:4, 3:15, 4:64, 5:325, 6:1956, 7:13699
             for p in range(0, len(perm)+1):
-                temp.append(perm[:p] + jumble[j] + perm[p:])  # O(1)
+                temp.append(perm[:p] + jumble[j] + perm[p:])
 
         # Add variants in the temp list to the list of permutations
         # but first check for duplicates caused by double letters from words like "apple"
@@ -50,7 +49,7 @@ if __name__ == '__main__':
     # Display permutations
     # print('all permutations:', perms)
 
-    print('#perms=', len(perms))
+    print('# perms = ', len(perms))
 
     # Check all permutations against list of valid words, and add valid words to a final list
     words = []
