@@ -31,23 +31,24 @@ if __name__ == '__main__':
 
         # Add the next letter in the jumble to each position of each existing permutation
         for perm in perms:  # len(jumble):num_permutations - 1:1, 2:4, 3:15, 4:64, 5:325, 6:1956, 7:13699
-            for p in range(0, len(perm)+1):
+            for p in range(0, len(perm) + 1):
                 temp.append(perm[:p] + jumble[j] + perm[p:])
+
+        # Add individual letter to list of permutations after sequential insertion, above
+        temp.append(jumble[j])
 
         # Add variants in the temp list to the list of permutations
         # but first check for duplicates caused by double letters from words like "apple"
-        for perm in temp:
-            if perm not in perms:
-                perms.append(perm)
+        for new_perm in temp:
+            if new_perm not in perms:
+                perms.append(new_perm)
 
         # Clear temp
         temp = []
 
-        # Add individual letter to list of permutations after sequential insertion, above
-        perms.append(jumble[j])
 
     # Display permutations
-    # print('all permutations:', perms)
+    print('all permutations:', perms)
 
     print('# perms = ', len(perms))
 
