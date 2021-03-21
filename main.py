@@ -1,7 +1,8 @@
 # https://en.wikipedia.org/wiki/Jumble_algorithm
 
 
-import sys, time
+import sys
+import time
 
 
 def load_words(filename):
@@ -26,31 +27,28 @@ if __name__ == '__main__':
     start_time = time.time()
 
     # Create list of permutations
-    perms = []
+    permutations = []
     temp = []
 
     for j in range(0, len(jumble)):
-
         # Add the next letter in the jumble to each position of each existing permutation
-        for perm in perms:  # len(jumble):num_permutations - 1:1, 2:4, 3:15, 4:64, 5:325, 6:1956, 7:13699
+        for perm in permutations:  # len(jumble):num_permutations - 1:1, 2:4, 3:15, 4:64, 5:325, 6:1956, 7:13699
             for p in range(0, len(perm) + 1):
                 temp.append(perm[:p] + jumble[j] + perm[p:])
-
         temp.append(jumble[j])
-
-        for new_perm in temp:
-            if new_perm not in perms:
-                perms.append(new_perm)
-
+        permutations.extend(temp)
         temp = []
 
-    # print('all permutations:', perms)
-    # print('# perms = ', len(perms))
+    # Remove duplicates
+    permutations = list(dict.fromkeys(permutations))
+
+    # print('all permutations:', permutations)
+    # print('# perms = ', len(permutations))
 
     # Check all permutations against list of valid words, and add valid words to a final list
     words = []
 
-    for perm in perms:
+    for perm in permutations:
         if perm in language:
             words.append(perm)
 
