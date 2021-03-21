@@ -31,7 +31,7 @@ if __name__ == '__main__':
     for j in range(0, len(jumble)):  # executed n times
 
         # Add the next letter in the jumble to each position of each existing permutation
-        for perm in perms:  # 1:1, 2:4, 3:15, 4:64, 5:325, 6:1956, 7:13699
+        for perm in perms:  # len(jumble):num_permutations - 1:1, 2:4, 3:15, 4:64, 5:325, 6:1956, 7:13699
             for p in range(0, len(perm)+1):
                 temp.append(perm[:p] + jumble[j] + perm[p:])  # O(1)
 
@@ -60,6 +60,3 @@ if __name__ == '__main__':
             words.append(perm)
 
     print('real words: ', words)
-
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
