@@ -1,59 +1,61 @@
-# https://en.wikipedia.org/wiki/Jumble_algorithm
-
-
 import sys
 import time
+from itertools import combinations
 
 
 def load_words(filename):
     with open(filename) as word_file:
-        valid_words = set(word_file.read().split())
-
+        valid_words = word_file.read().split()
     return valid_words
+
+
+def build_table(word_list):
+    table = {}
+    for word in word_list:
+        key = ''.join(sorted(word))
+        table.setdefault(key, []).append(word)
+    return table
+
+
+def lookup(jumble_variant, table):
+    key = ''.join(sorted(jumble_variant))
+    return dict.fromkeys(table.get(key, []))
 
 
 if __name__ == '__main__':
 
     try:
-        language = load_words(sys.argv[1])
+        language_table = build_table(load_words(sys.argv[1]))
         jumble = sys.argv[2]
     except:
         print('There was an error. The first argument should point to a word-list')
         print('file and the second should be a jumble of characters')
         print('Using default word list and "dog" as input')
-        language = load_words('words_alpha.txt')
+        language_table = build_table(load_words('words_alpha.txt'))
         jumble = 'dog'
 
     start_time = time.time()
 
-    # Create list of permutations
-    permutations = []
-    temp = []
+    # Create dict of permutations, use dict to prevent duplicates
+    unique_combis = {jumble: None}
+    for j in range(len(jumble), 1, -1):
+        temp = combinations(jumble, j)
+        for i in temp:
+            unique_combis.setdefault(''.join(i), None)
 
-    for j in range(0, len(jumble)):
-        # Add the next letter in the jumble to each position of each existing permutation
-        for perm in permutations:  # len(jumble):num_permutations - 1:1, 2:4, 3:15, 4:64, 5:325, 6:1956, 7:13699
-            for p in range(0, len(perm) + 1):
-                temp.append(perm[:p] + jumble[j] + perm[p:])
-        temp.append(jumble[j])
-        permutations.extend(temp)
-        temp = []
-
-    # Remove duplicates
-    permutations = list(dict.fromkeys(permutations))
-
-    # print('all permutations:', permutations)
-    # print('# perms = ', len(permutations))
-
-    # Check all permutations against list of valid words, and add valid words to a final list
-    words = []
-
-    for perm in permutations:
-        if perm in language:
-            words.append(perm)
+    # Use lookup table to get matching anagrams for each permutation
+    # Use a dict (set would also work) to prevent duplicates
+    words = {}
+    for combi in unique_combis:
+        temp = lookup(combi, language_table)
+        words.update(temp)
 
     total_time = time.time() - start_time
 
-    print('valid words: ', words)
+    # Report
+    for word in list(words.keys()):
+        print(word)
 
-    print('time: ', total_time)
+    print('')
+    print('Finished in', total_time, 'seconds after initial loading and processing')
+
