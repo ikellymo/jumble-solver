@@ -24,6 +24,8 @@ def lookup(jumble_variant, table):
 
 if __name__ == '__main__':
 
+    start_time = time.time()
+
     try:
         language_table = build_table(load_words(sys.argv[1]))
         jumble = sys.argv[2]
@@ -34,7 +36,7 @@ if __name__ == '__main__':
         language_table = build_table(load_words('words_alpha.txt'))
         jumble = 'dog'
 
-    start_time = time.time()
+    loaded_time = time.time()
 
     # Create dict of permutations, use dict to prevent duplicates
     unique_combis = {jumble: None}
@@ -50,12 +52,15 @@ if __name__ == '__main__':
         temp = lookup(combi, language_table)
         words.update(temp)
 
-    total_time = time.time() - start_time
+    total_time = time.time() - loaded_time
+    load_time = loaded_time - start_time
 
     # Report
     for word in list(words.keys()):
         print(word)
 
     print('')
+    print('Loading took', load_time, 'seconds')
     print('Finished in', total_time, 'seconds after initial loading and processing')
+    print('')
 
