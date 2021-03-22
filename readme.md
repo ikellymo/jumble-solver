@@ -88,4 +88,6 @@ is better than O(n!) due to the factorial in the denominator.
 | waterway   | 8  | 4.757625  | 0.076176  | 0.566327           | 0.000515      | 0.566842  |
 | formulate  | 9  |           | 0.943021  | 0.565326           | 0.001112      | 0.566438  |
 | dictionary | 10 |           | 9.709259  | 0.562932           | 0.001889      | 0.564821  |
+
+
 ![img.png](img.png)
