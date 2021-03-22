@@ -76,3 +76,16 @@ to Raymonds answer [here](https://stackoverflow.com/questions/20510084/python-al
 Combinations still need to be generated however, which has 
 time complexity of **O(n choose r)**, which by [definition](https://en.wikipedia.org/wiki/Combination#:~:text=Combinations%20refer%20to%20the%20combination,with%20repetition%20are%20often%20used.), 
 is better than O(n!) due to the factorial in the denominator.
+
+## Results
+| Jumble     | n  | v0.1      | v0.2      | v0.3               |               |           |
+|------------|----|-----------|-----------|--------------------|---------------|-----------|
+|            |    | total [s] | total [s] | pre-processing [s] | execution [s] | total [s] |
+| dog        | 3  | 0.000035  | 0.000038  | 0.574487           | 0.000076      | 0.574563  |
+| cake       | 4  | 0.000113  | 0.000117  | 0.568251           | 0.000079      | 0.568330  |
+| create     | 5  | 0.013637  | 0.001580  | 0.573747           | 0.000180      | 0.573927  |
+| formula    | 7  | 1.094946  | 0.011275  | 0.550776           | 0.000292      | 0.551068  |
+| waterway   | 8  | 4.757625  | 0.076176  | 0.566327           | 0.000515      | 0.566842  |
+| formulate  | 9  |           | 0.943021  | 0.565326           | 0.001112      | 0.566438  |
+| dictionary | 10 |           | 9.709259  | 0.562932           | 0.001889      | 0.564821  |
+![img.png](img.png)
