@@ -66,8 +66,8 @@ dropping one order of n from the time complexity but
 still retains a time complexity of **O(n!)**. 
 
 **Version 0.3** was written because the above code still
-would not execute for jumble length input of 20. Where 20! = 2.4x10^18, 
-this version essentially caps the execution time to the length
+would not execute for jumble length input of 20. Since factorials
+blow up so quickly, for example 20! = 2.4x10^18, this version essentially caps the execution time to the length
 of the word list, rather than the number of permutations on
 the input. This is done by pre-compiling the word-list into a 
 dictionary, keyed by the anagram of the word, sorted. Many thanks
@@ -75,4 +75,4 @@ to Raymonds answer [here](https://stackoverflow.com/questions/20510084/python-al
 
 Combinations still need to be generated however, which has 
 time complexity of **O(n choose r)**, which by [definition](https://en.wikipedia.org/wiki/Combination#:~:text=Combinations%20refer%20to%20the%20combination,with%20repetition%20are%20often%20used.), 
-is better than O(n!)
+is better than O(n!) due to the factorial in the denominator.
